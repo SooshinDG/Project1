@@ -4,8 +4,10 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.97 0.005 80);
-  --foreground: oklch(0.20 0.01 60);
+  /* A안: 프리미엄 미니멀/화이트 — warm off-white */
+  --background: oklch(0.985 0.004 85);
+  --foreground: oklch(0.22 0.01 60);
+  --header-gap: 4.5rem;
   --card: oklch(0.99 0.003 80);
   --card-foreground: oklch(0.20 0.01 60);
   --popover: oklch(0.99 0.003 80);
@@ -45,8 +47,9 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-sans), 'Noto Sans KR', sans-serif;
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  /* 시스템/로컬 폰트만 사용 — 빌드 시 네트워크 의존 제거 */
+  --font-sans: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'Dotum', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -99,5 +102,16 @@
   }
   body {
     @apply bg-background text-foreground;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* 섹션 기본 패딩 유틸 (A안 미니멀 여백) */
+@layer utilities {
+  .section-padding {
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
   }
 }
