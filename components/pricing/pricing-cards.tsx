@@ -1,65 +1,50 @@
 import Link from "next/link";
-import { Check, Minus } from "lucide-react";
+import { Check } from "lucide-react";
 
 const packages = [
   {
     name: "Lite",
     price: "99만원",
     period: "1회",
-    description: "심플하지만 확실한 첫 웹사이트. 빠르게 온라인에 존재감을 만드세요.",
-    features: [
-      { text: "반응형 랜딩페이지 1장", included: true },
-      { text: "모바일 최적화", included: true },
-      { text: "기본 SEO 세팅", included: true },
-      { text: "문의 폼 1개", included: true },
-      { text: "수정 2회 포함", included: true },
-      { text: "5~7일 납기", included: true },
-      { text: "추가 페이지", included: false },
-      { text: "예약/결제 시스템", included: false },
-      { text: "관리자 대시보드", included: false },
-      { text: "유지보수", included: false },
+    description: "심플한 첫 웹사이트. 빠르게 온라인 존재감을 만드세요.",
+    included: [
+      "랜딩 1페이지",
+      "모바일 최적화",
+      "기본 SEO",
+      "문의 폼 1개",
+      "수정 2회",
+      "5~7일 납기",
     ],
-    cta: "Lite 시작하기",
     popular: false,
   },
   {
     name: "Standard",
     price: "199만원",
     period: "1회",
-    description: "성장하는 비즈니스를 위한 최적의 선택. 예약과 상담을 자동화하세요.",
-    features: [
-      { text: "반응형 웹사이트 5페이지", included: true },
-      { text: "모바일 최적화", included: true },
-      { text: "고급 SEO 세팅", included: true },
-      { text: "문의 폼 + 자동 알림", included: true },
-      { text: "예약/상담 시스템", included: true },
-      { text: "기본 관리자 페이지", included: true },
-      { text: "수정 3회 포함", included: true },
-      { text: "10~14일 납기", included: true },
-      { text: "결제 시스템 연동", included: false },
-      { text: "유지보수", included: false },
+    description: "성장하는 비즈니스에 맞는 구성. 예약·상담 자동화.",
+    included: [
+      "반응형 5페이지",
+      "모바일 최적화",
+      "고급 SEO",
+      "문의 폼 + 자동 알림",
+      "예약/상담 시스템",
+      "수정 3회 · 10~14일 납기",
     ],
-    cta: "Standard 시작하기",
     popular: true,
   },
   {
     name: "Premium",
     price: "349만원",
     period: "1회",
-    description: "완벽한 자동화와 프리미엄 브랜딩. 매출에 직접 기여하는 웹사이트.",
-    features: [
-      { text: "10페이지+ 풀 웹사이트", included: true },
-      { text: "모바일 최적화", included: true },
-      { text: "SEO + 성능 최적화", included: true },
-      { text: "문의/예약 + 자동화", included: true },
-      { text: "간편 결제 연동", included: true },
-      { text: "맞춤 관리자 대시보드", included: true },
-      { text: "무제한 수정", included: true },
-      { text: "14~21일 납기", included: true },
-      { text: "1개월 무료 유지보수", included: true },
-      { text: "우선 지원", included: true },
+    description: "풀 구성과 자동화. 매출에 직접 기여하는 사이트.",
+    included: [
+      "10페이지+ 풀 사이트",
+      "SEO + 성능 최적화",
+      "문의/예약 + 결제 연동",
+      "맞춤 관리자",
+      "수정 무제한",
+      "14~21일 납기 · 1개월 무료 유지보수",
     ],
-    cta: "Premium 시작하기",
     popular: false,
   },
 ];
@@ -80,7 +65,7 @@ export function PricingCards() {
             >
               {pkg.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-medium text-primary-foreground">
-                  가장 인기
+                  가장 많이 선택
                 </div>
               )}
 
@@ -101,40 +86,36 @@ export function PricingCards() {
                 </p>
               </div>
 
-              <div className="mb-8 flex flex-1 flex-col gap-3">
-                {pkg.features.map((feature) => (
-                  <div
-                    key={feature.text}
-                    className="flex items-center gap-3 text-sm"
+              <ul className="mb-8 flex flex-1 flex-col gap-2.5">
+                {pkg.included.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-3 text-sm text-foreground"
                   >
-                    {feature.included ? (
-                      <Check className="size-4 shrink-0 text-warm-800" />
-                    ) : (
-                      <Minus className="size-4 shrink-0 text-muted-foreground/40" />
-                    )}
-                    <span
-                      className={
-                        feature.included
-                          ? "text-foreground"
-                          : "text-muted-foreground/60"
-                      }
-                    >
-                      {feature.text}
-                    </span>
-                  </div>
+                    <Check className="size-4 shrink-0 text-warm-800" />
+                    <span>{item}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
-              <Link
-                href="/contact"
-                className={`mt-auto inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition-all ${
-                  pkg.popular
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "border border-border bg-background text-foreground hover:bg-accent"
-                }`}
-              >
-                {pkg.cta}
-              </Link>
+              <div className="mt-auto flex flex-col gap-3">
+                <Link
+                  href="/contact"
+                  className={`inline-flex items-center justify-center rounded-full px-6 py-3.5 text-sm font-medium transition-all ${
+                    pkg.popular
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md"
+                      : "border border-border bg-background text-foreground hover:bg-accent"
+                  }`}
+                >
+                  무료 진단 받기(3분)
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-center text-xs text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+                >
+                  패키지 문의
+                </Link>
+              </div>
             </div>
           ))}
         </div>
